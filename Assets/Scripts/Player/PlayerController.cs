@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float turnSmoothTime;
 
 
-    
+
 
     private CharacterController controller;
     private Animator animator;
@@ -26,12 +26,15 @@ public class PlayerController : MonoBehaviour
     private bool isRunning = false;
     private float turnSmoothVelocity;
 
+    private PlayerInteraction playerInteraction;
 
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+
+        playerInteraction = GetComponentInChildren<PlayerInteraction>();
     }
 
     private void FixedUpdate()
@@ -45,7 +48,7 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
             Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            
+
             if (isRunning)
             {
                 controller.Move(moveDirection.normalized * runSpeed * Time.deltaTime);
@@ -61,10 +64,15 @@ public class PlayerController : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         movement = context.ReadValue<Vector2>();
-    }    
+    }
+
     public void Running(InputAction.CallbackContext context)
     {
         isRunning = context.performed;
         animator.SetBool("Running", isRunning);
+    }
+    public void Fire(InputAction.CallbackContext context)
+    {
+        playerInteraction.Interact();
     }
 }
