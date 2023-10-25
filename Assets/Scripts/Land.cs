@@ -6,7 +6,9 @@ public class Land : MonoBehaviour
 {
     public enum LandStatus
     {
-        Soil, Farmland, Watered
+        Soil,
+        Farmland,
+        Watered
     }
 
     [SerializeField] private LandStatus landStatus;
@@ -43,8 +45,8 @@ public class Land : MonoBehaviour
             case LandStatus.Watered:
                 materialToSwitch = wateredMat;
                 break;
-
         }
+
         renderer.material = materialToSwitch;
     }
 

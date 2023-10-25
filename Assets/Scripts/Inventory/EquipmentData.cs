@@ -1,14 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Items/Equipment")]
-public class EquipmentData : ItemData
+namespace Inventory
 {
-    public enum ToolType
+    [CreateAssetMenu(menuName = "Items/Equipment")]
+    public class EquipmentData : ItemData
     {
-        Hoe, WateringCan, Axe, Pickaxe
-    }
-    public ToolType toolType;
+        public enum ToolType
+        {
+            Hoe,
+            WateringCan,
+            Axe,
+            Pickaxe
+        }
 
+        public ToolType toolType;
+    }
 }

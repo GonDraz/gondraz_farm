@@ -1,37 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryManager : MonoBehaviour
+namespace Inventory
 {
-    public static InventoryManager Instance { get; private set; }
-
-    private void Awake()
+    public class InventoryManager : MonoBehaviour
     {
-        if (Instance != null && Instance != this)
+        public static InventoryManager Instance { get; private set; }
+
+        private void Awake()
         {
-            Destroy(this);
+            if (Instance != null && Instance != this)
+            {
+                Destroy(this);
+            }
+            else
+            {
+                Instance = this;
+            }
         }
-        else
+
+        [Header("Tools")] public ItemData[] tools = new ItemData[8];
+        public ItemData equippedTool = null;
+
+        [Header("Items")] public ItemData[] items = new ItemData[8];
+        public ItemData equippedItem = null;
+
+        void Start()
         {
-            Instance = this;
         }
-    }
 
-    [Header("Tools")]
-    public ItemData[] tools = new ItemData[8];
-    public ItemData equippedTool = null;
-
-    [Header("Items")]
-    public ItemData[] items = new ItemData[8];
-    public ItemData equippedItem = null;
-
-    void Start()
-    {
-    }
-
-    void Update()
-    {
-
+        void Update()
+        {
+        }
     }
 }
