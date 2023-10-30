@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Application.Entity
+namespace Entity
 {
     public class Land : MonoBehaviour
     {

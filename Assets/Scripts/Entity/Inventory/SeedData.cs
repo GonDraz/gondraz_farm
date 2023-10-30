@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Application.Entity.Inventory
+namespace Entity.Inventory
 {
     [CreateAssetMenu(menuName = "Items/Seed")]
     public class SeedData : ItemData
