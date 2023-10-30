@@ -3,8 +3,12 @@ using Managers.StateManagers;
 
 namespace States.GlobalStates
 {
-    public class InGameState : BaseGlobalState,IState
+    public class InGameState : BaseGlobalState, IState
     {
+        public InGameState(GlobalStateManager globalStateManager) : base(globalStateManager)
+        {
+        }
+
         public void Tick()
         {
         }
@@ -14,10 +18,6 @@ namespace States.GlobalStates
         }
 
         public void OnExit()
-        {
-        }
-
-        public InGameState(GlobalStateManager globalStateManager) : base(globalStateManager)
         {
         }
     }

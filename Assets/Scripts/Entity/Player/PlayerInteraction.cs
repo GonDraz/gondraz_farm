@@ -4,23 +4,20 @@ namespace Entity.Player
 {
     public class PlayerInteraction : MonoBehaviour
     {
-        Land selectedLand = null;
+        private Land selectedLand;
 
-        void Update()
+        private void Update()
         {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, Vector3.down, out hit, 1))
-            {
-                OnInteractableHit(hit);
-            }
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, 1)) OnInteractableHit(hit);
         }
 
-        void OnInteractableHit(RaycastHit hit)
+        private void OnInteractableHit(RaycastHit hit)
         {
-            Collider other = hit.collider;
+            var other = hit.collider;
             if (other.tag == "Land")
             {
-                Land land = other.GetComponent<Land>();
+                var land = other.GetComponent<Land>();
                 SelectLand(land);
                 return;
             }
@@ -32,13 +29,10 @@ namespace Entity.Player
             }
         }
 
-        void SelectLand(Land land)
+        private void SelectLand(Land land)
         {
             //Set the previously selected land to false (If any)
-            if (selectedLand != null)
-            {
-                selectedLand.Select(false);
-            }
+            if (selectedLand != null) selectedLand.Select(false);
 
             //Set the new selected land to the land we're selecting now. 
             selectedLand = land;

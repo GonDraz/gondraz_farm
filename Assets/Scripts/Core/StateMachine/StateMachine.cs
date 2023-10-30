@@ -5,13 +5,12 @@ namespace Core.StateMachine
 {
     public class StateMachine
     {
-        private IState _currentState;
-
-        private readonly Dictionary<Type, List<Transition>> _transitions = new();
-        private List<Transition> _currentTransitions = new();
+        private static readonly List<Transition> EmptyTransitions = new(0);
         private readonly List<Transition> _anyTransitions = new();
 
-        private static readonly List<Transition> EmptyTransitions = new(0);
+        private readonly Dictionary<Type, List<Transition>> _transitions = new();
+        private IState _currentState;
+        private List<Transition> _currentTransitions = new();
 
         public void Tick()
         {
@@ -52,18 +51,6 @@ namespace Core.StateMachine
             _anyTransitions.Add(new Transition(state, predicate));
         }
 
-        private class Transition
-        {
-            public Func<bool> Condition { get; }
-            public IState To { get; }
-
-            public Transition(IState to, Func<bool> condition)
-            {
-                To = to;
-                Condition = condition;
-            }
-        }
-
         private Transition GetTransition()
         {
             foreach (var transition in _anyTransitions)
@@ -75,6 +62,18 @@ namespace Core.StateMachine
                     return transition;
 
             return null;
+        }
+
+        private class Transition
+        {
+            public Transition(IState to, Func<bool> condition)
+            {
+                To = to;
+                Condition = condition;
+            }
+
+            public Func<bool> Condition { get; }
+            public IState To { get; }
         }
     }
 }

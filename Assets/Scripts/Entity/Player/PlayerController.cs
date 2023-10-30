@@ -10,19 +10,19 @@ namespace Entity.Player
         [SerializeField] private float walkSpeed;
         [SerializeField] private float runSpeed;
         [SerializeField] private float turnSmoothTime;
+        private Animator animator;
 
 
         private CharacterController controller;
-        private Animator animator;
+
+        private bool isRunning;
         private Vector2 movement;
 
-        private bool isRunning = false;
+        private PlayerInteraction playerInteraction;
         private float turnSmoothVelocity;
 
-        private PlayerInteraction playerInteraction;
 
-
-        void Start()
+        private void Start()
         {
             controller = GetComponent<CharacterController>();
             animator = GetComponent<Animator>();
@@ -32,26 +32,22 @@ namespace Entity.Player
 
         private void FixedUpdate()
         {
-            Vector3 direction = new Vector3(movement.x, 0f, movement.y).normalized;
+            var direction = new Vector3(movement.x, 0f, movement.y).normalized;
 
             if (direction.magnitude >= 0.1f)
             {
-                float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg +
-                                    cameraTransform.eulerAngles.y;
-                float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity,
+                var targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg +
+                                  cameraTransform.eulerAngles.y;
+                var angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity,
                     turnSmoothTime);
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
-                Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+                var moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
                 if (isRunning)
-                {
-                    controller.Move(moveDirection.normalized * runSpeed * Time.deltaTime);
-                }
+                    controller.Move(moveDirection.normalized * (runSpeed * Time.deltaTime));
                 else
-                {
-                    controller.Move(moveDirection.normalized * walkSpeed * Time.deltaTime);
-                }
+                    controller.Move(moveDirection.normalized * (walkSpeed * Time.deltaTime));
             }
 
             animator.SetFloat("Speed", direction.magnitude);

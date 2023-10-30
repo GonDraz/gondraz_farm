@@ -4,8 +4,12 @@ using UnityEngine;
 
 namespace States.GlobalStates
 {
-    public class PreLoaderState : BaseGlobalState,IState
+    public class PreLoaderState : BaseGlobalState, IState
     {
+        public PreLoaderState(GlobalStateManager globalStateManager) : base(globalStateManager)
+        {
+        }
+
         public void Tick()
         {
         }
@@ -16,10 +20,6 @@ namespace States.GlobalStates
         }
 
         public void OnExit()
-        {
-        }
-
-        public PreLoaderState(GlobalStateManager globalStateManager) : base(globalStateManager)
         {
         }
     }

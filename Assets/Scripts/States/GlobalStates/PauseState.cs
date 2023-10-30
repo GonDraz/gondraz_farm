@@ -3,11 +3,14 @@ using Managers.StateManagers;
 
 namespace States.GlobalStates
 {
-    public class PauseState: BaseGlobalState,IState
+    public class PauseState : BaseGlobalState, IState
     {
+        public PauseState(GlobalStateManager globalStateManager) : base(globalStateManager)
+        {
+        }
+
         public void Tick()
         {
-            
         }
 
         public void OnEnter()
@@ -15,10 +18,6 @@ namespace States.GlobalStates
         }
 
         public void OnExit()
-        {
-        }
-
-        public PauseState(GlobalStateManager globalStateManager) : base(globalStateManager)
         {
         }
     }
