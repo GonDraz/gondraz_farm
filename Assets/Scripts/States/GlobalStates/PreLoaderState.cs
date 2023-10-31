@@ -4,22 +4,22 @@ using UnityEngine;
 
 namespace States.GlobalStates
 {
-    public class PreLoaderState : BaseGlobalState, IState
+    public class PreLoaderState : BaseState<GlobalStateManager>, IState
     {
         public PreLoaderState(GlobalStateManager globalStateManager) : base(globalStateManager)
         {
         }
 
-        public void Tick()
+        public override void Tick()
         {
         }
 
-        public void OnEnter()
+        public override void OnEnter()
         {
-            Debug.LogWarning("PreLoaderState OnEnter");
+            StateManager.playerController.Controlled = false;
         }
 
-        public void OnExit()
+        public override void OnExit()
         {
         }
     }

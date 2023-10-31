@@ -4,22 +4,22 @@ using UnityEngine;
 
 namespace States.GlobalStates
 {
-    public class MenuState : BaseGlobalState, IState
+    public class MenuState : BaseState<GlobalStateManager>, IState
     {
-        public MenuState(GlobalStateManager globalStateManager) : base(globalStateManager)
+        public MenuState(GlobalStateManager stateManager) : base(stateManager)
         {
         }
 
-        public void Tick()
+        public override void Tick()
         {
         }
 
-        public void OnEnter()
+        public override void OnEnter()
         {
-            Debug.LogWarning("MenuState OnEnter");
+            StateManager.playerController.Controlled = false;
         }
 
-        public void OnExit()
+        public override void OnExit()
         {
         }
     }

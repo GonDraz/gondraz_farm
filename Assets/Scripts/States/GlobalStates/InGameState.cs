@@ -3,21 +3,23 @@ using Managers.StateManagers;
 
 namespace States.GlobalStates
 {
-    public class InGameState : BaseGlobalState, IState
+    public class InGameState : BaseState<GlobalStateManager>, IState
     {
         public InGameState(GlobalStateManager globalStateManager) : base(globalStateManager)
         {
         }
 
-        public void Tick()
+        public override void Tick()
         {
         }
 
-        public void OnEnter()
-        {
+        public override void OnEnter()
+        {            
+            StateManager.playerController.Controlled = true;
+
         }
 
-        public void OnExit()
+        public override void OnExit()
         {
         }
     }

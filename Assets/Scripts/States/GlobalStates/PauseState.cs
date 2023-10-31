@@ -3,21 +3,21 @@ using Managers.StateManagers;
 
 namespace States.GlobalStates
 {
-    public class PauseState : BaseGlobalState, IState
+    public class PauseState : BaseState<GlobalStateManager>, IState
     {
         public PauseState(GlobalStateManager globalStateManager) : base(globalStateManager)
         {
         }
 
-        public void Tick()
+        public override void Tick()
         {
         }
 
-        public void OnEnter()
+        public override void OnEnter()
         {
         }
 
-        public void OnExit()
+        public override void OnExit()
         {
         }
     }

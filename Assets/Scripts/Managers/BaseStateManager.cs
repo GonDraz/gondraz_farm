@@ -1,38 +1,34 @@
-using System;
 using Core.StateMachine;
 using UnityEngine;
 
 namespace Managers
 {
-    public abstract class BaseStateManager : MonoBehaviour
+    public abstract class BaseStateManager<T> : MonoBehaviour where T : BaseStateManager<T>
     {
-        public static BaseStateManager Instance;
+        protected readonly StateMachine StateMachine = new();
 
-        protected StateMachine stateMachineManager = new();
+        public static T Instance { get; private set; }
 
-        private void Awake()
+        protected virtual void Awake()
         {
-            if (Instance != null && Instance != this)
+            if (Instance == null)
             {
-                Destroy(this);
+                Instance = (T)this;
+                DontDestroyOnLoad(gameObject);
+                OnInit();
             }
-            else
+            else if (Instance != this)
             {
-                Instance = this;
-                DontDestroyOnLoad(Instance);
+                Destroy(gameObject);
             }
         }
+        protected abstract void OnInit();
 
-        protected abstract void Start();
 
         private void Update()
         {
-            stateMachineManager.Tick();
+            StateMachine.Tick();
         }
 
-        protected void AddTran(IState from, IState to, Func<bool> cond)
-        {
-            stateMachineManager.AddTransition(from, to, cond);
-        }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Managers.StateManagers;
 using UnityEngine;
 
@@ -11,10 +12,16 @@ namespace Managers
 
         private void Awake()
         {
-            foreach (var _stateManager in _stateManagers)
+            foreach (var _gameObject in _stateManagers.Select(_stateManager =>
+                         new GameObject(_stateManager.Name, _stateManager)))
             {
-                var _gameObject = new GameObject(_stateManager.Name, _stateManager);
             }
+        }
+
+
+        private void Start()
+        {
+            Invoke("ApplicationLoadFinished", 2f);
         }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -23,6 +30,11 @@ namespace Managers
             // if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Application") return;
             var app = new GameObject { name = "ApplicationManager" };
             app.AddComponent<ApplicationManager>();
+        }
+
+        private void ApplicationLoadFinished()
+        {
+            GlobalStateManager.Instance.ApplicationLoadFinished = true;
         }
     }
 }

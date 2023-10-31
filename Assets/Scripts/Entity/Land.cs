@@ -16,11 +16,11 @@ namespace Entity
         [SerializeField] private Material soilMat, farmlandMat, wateredMat;
 
         public GameObject select;
-        private new Renderer renderer;
+        private Renderer _renderer;
 
         private void Start()
         {
-            renderer = GetComponent<Renderer>();
+            _renderer = GetComponent<Renderer>();
 
             SwitchLandStatus(LandStatus.Soil);
 
@@ -47,7 +47,7 @@ namespace Entity
                     break;
             }
 
-            renderer.material = materialToSwitch;
+            _renderer.material = materialToSwitch;
         }
 
         public void Select(bool toggle)

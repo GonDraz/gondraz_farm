@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace Core.StateMachine
 {
@@ -27,6 +29,10 @@ namespace Core.StateMachine
                 return;
 
             _currentState?.OnExit();
+
+            if (_currentState != null)
+                Debug.Log("Change state " + _currentState.GetType().Name + " to " + state.GetType().Name + "");
+
             _currentState = state;
 
             _transitions.TryGetValue(_currentState.GetType(), out _currentTransitions);
@@ -53,15 +59,10 @@ namespace Core.StateMachine
 
         private Transition GetTransition()
         {
-            foreach (var transition in _anyTransitions)
-                if (transition.Condition())
-                    return transition;
+            foreach (var transition in _anyTransitions.Where(transition => transition.Condition()))
+                return transition;
 
-            foreach (var transition in _currentTransitions)
-                if (transition.Condition())
-                    return transition;
-
-            return null;
+            return _currentTransitions.FirstOrDefault(transition => transition.Condition());
         }
 
         private class Transition
