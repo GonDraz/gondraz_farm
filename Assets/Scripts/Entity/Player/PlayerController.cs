@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace Entity.Player
 {
@@ -15,7 +16,7 @@ namespace Entity.Player
         private CharacterController _controller;
 
         private bool _isRunning;
-        private Vector2 _movement;
+       public static Vector2 movement;
 
         private PlayerInteraction _playerInteraction;
         private float _turnSmoothVelocity;
@@ -38,7 +39,7 @@ namespace Entity.Player
         {
             if (!Controlled) return;
             
-            var direction = new Vector3(_movement.x, 0f, _movement.y).normalized;
+            var direction = new Vector3(movement.x, 0f, movement.y).normalized;
 
             if (direction.magnitude >= 0.1f)
             {
@@ -59,10 +60,10 @@ namespace Entity.Player
             _animator.SetFloat(Speed, direction.magnitude);
         }
 
-        public void Move(InputAction.CallbackContext context)
-        {
-            _movement = context.ReadValue<Vector2>();
-        }
+        // public void Move(InputAction.CallbackContext context)
+        // {
+        //     movement = context.ReadValue<Vector2>();
+        // }
 
         public void Run(InputAction.CallbackContext context)
         {

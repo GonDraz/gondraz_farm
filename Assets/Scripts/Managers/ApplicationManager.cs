@@ -8,14 +8,12 @@ namespace Managers
 {
     public class ApplicationManager : MonoBehaviour
     {
-        private readonly List<Type> _stateManagers = new() { typeof(GlobalStateManager) };
+        private readonly List<Type> _stateManagers = new() { typeof(GlobalStateManager), typeof(ControlManager) };
 
         private void Awake()
         {
             foreach (var _gameObject in _stateManagers.Select(_stateManager =>
-                         new GameObject(_stateManager.Name, _stateManager)))
-            {
-            }
+                         new GameObject(_stateManager.Name, _stateManager))) ;
         }
 
 

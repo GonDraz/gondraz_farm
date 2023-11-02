@@ -11,10 +11,16 @@ namespace States
             StateManager = stateManager;
         }
 
-        public abstract void Tick();
+        public virtual void Tick()
+        {
+        }
 
-        public abstract void OnEnter();
+        public virtual void OnEnter()
+        {
+        }
 
-        public abstract void OnExit();
+        public virtual void OnExit()
+        {
+        }
     }
 }

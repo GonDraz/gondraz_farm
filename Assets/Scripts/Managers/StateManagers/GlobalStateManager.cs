@@ -8,7 +8,7 @@ namespace Managers.StateManagers
     public class GlobalStateManager : BaseStateManager<GlobalStateManager>
     {
         public PlayerController playerController;        
-        
+        // public 
         
         public bool ApplicationLoadFinished { get; set; }
         public bool GamePlay { get; set; }
