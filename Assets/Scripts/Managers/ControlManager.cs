@@ -1,5 +1,4 @@
-using System;
-using Autodesk.Fbx;
+using Core;
 using Entity.Player;
 using Managers.StateManagers;
 using UnityEngine;
@@ -7,32 +6,36 @@ using UnityEngine.InputSystem;
 
 namespace Managers
 {
-    public class ControlManager : MonoBehaviour
+    public class ControlManager : SingletonMonoBehaviour<ControlManager>
     {
-        public static ControlManager Instance { get; set; }
+        protected override bool IsDontDestroyOnLoad { get; set; } = true;
+        protected override void OnInit()
+        {            
+            base.OnInit();
+            GlobalStateManager.Instance.InGameState.Enter += OnInGameEnter;
+            GlobalStateManager.Instance.InGameState.Exit += OnInGameExit;
+        }
         
         private GonDrazFarmControl _control;
 
-        private void Awake()
+        private void Start()
         {
-            if (Instance == null)
-            {
-                DontDestroyOnLoad(this);
-                Instance = this;
-            }
-            else
-            {
-                Destroy(this);
-            }
-        }
-        public void Start()
-        {
-            _control.Player.Move.performed += Move;
+            _control = new GonDrazFarmControl();
+            _control.Enable();
         }
 
-        public void Move(InputAction.CallbackContext context)
+        private void OnInGameEnter()
         {
-            PlayerController.movement = context.ReadValue<Vector2>();
+            _control.Player.Enable();
+
+            _control.Player.Move.performed += PlayerController.Instance.Move;
+            _control.Player.Move.canceled += PlayerController.Instance.Move;
+        }
+
+
+
+        private void OnInGameExit()
+        {
         }
     }
 }

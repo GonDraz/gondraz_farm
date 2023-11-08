@@ -1,37 +1,27 @@
-using System;
-using Entity.Player;
-using States.GlobalStates;
-using UnityEngine;
+using States;
 
 namespace Managers.StateManagers
 {
-    public class GlobalStateManager : BaseStateManager<GlobalStateManager>
+    public class GlobalStateManager :  BaseStateManager<GlobalStateManager>
     {
-        public PlayerController playerController;        
-        // public 
-        
         public bool ApplicationLoadFinished { get; set; }
         public bool GamePlay { get; set; }
         public bool GamePause { get; set; }
 
+        public GlobalStates.PreLoaderState PreLoaderState = new();
+        public GlobalStates.MenuState MenuState = new();
+        public GlobalStates.InGameState InGameState = new();
+        public GlobalStates.PauseState PauseState = new();
+
         protected override void OnInit()
         {
-            var preLoaderState = new PreLoaderState(this);
-            var menuState = new MenuState(this);
-            var inGameState = new InGameState(this);
-            var pauseState = new PauseState(this);
+            base.OnInit();
+            StateMachine.AddTransition(PreLoaderState, MenuState, () => ApplicationLoadFinished);
+            StateMachine.AddTransition(MenuState, InGameState, () => GamePlay);
+            StateMachine.AddTransition(InGameState, PauseState, () => GamePause);
+            StateMachine.AddTransition(PauseState, InGameState, () => !GamePause);
 
-            StateMachine.AddTransition(preLoaderState, menuState, () => ApplicationLoadFinished);
-            StateMachine.AddTransition(menuState, inGameState, () => GamePlay);
-            StateMachine.AddTransition(inGameState, pauseState, () => GamePause);
-            StateMachine.AddTransition(pauseState, inGameState, () => !GamePause);
-
-            StateMachine.SetState(preLoaderState);
-        }
-
-        private void Start()
-        {
-            playerController = FindObjectOfType<PlayerController>();
+            StateMachine.SetState(PreLoaderState);
         }
     }
 }

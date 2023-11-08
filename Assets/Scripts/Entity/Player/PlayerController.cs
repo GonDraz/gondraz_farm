@@ -1,30 +1,30 @@
+using Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 namespace Entity.Player
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : SingletonMonoBehaviour<PlayerController>
     {
+        private static readonly int Speed = Animator.StringToHash("Speed");
+        private static readonly int Running = Animator.StringToHash("Running");
         [SerializeField] private Transform cameraTransform;
 
         [SerializeField] private float walkSpeed;
         [SerializeField] private float runSpeed;
         [SerializeField] private float turnSmoothTime;
+        
+        private Vector2 _movement;
         private Animator _animator;
 
         private CharacterController _controller;
 
         private bool _isRunning;
-       public static Vector2 movement;
 
         private PlayerInteraction _playerInteraction;
         private float _turnSmoothVelocity;
 
-        private static readonly int Speed = Animator.StringToHash("Speed");
-        private static readonly int Running = Animator.StringToHash("Running");
 
-        
         public bool Controlled { get; set; }
 
         private void Start()
@@ -37,9 +37,9 @@ namespace Entity.Player
 
         private void FixedUpdate()
         {
-            if (!Controlled) return;
-            
-            var direction = new Vector3(movement.x, 0f, movement.y).normalized;
+            // if (!Controlled) return;
+
+            var direction = new Vector3(_movement.x, 0f, _movement.y).normalized;
 
             if (direction.magnitude >= 0.1f)
             {
@@ -60,10 +60,10 @@ namespace Entity.Player
             _animator.SetFloat(Speed, direction.magnitude);
         }
 
-        // public void Move(InputAction.CallbackContext context)
-        // {
-        //     movement = context.ReadValue<Vector2>();
-        // }
+        public void Move(InputAction.CallbackContext context)
+        {
+            _movement = context.ReadValue<Vector2>();
+        }
 
         public void Run(InputAction.CallbackContext context)
         {

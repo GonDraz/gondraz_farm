@@ -8,18 +8,15 @@ namespace Managers
 {
     public class ApplicationManager : MonoBehaviour
     {
-        private readonly List<Type> _stateManagers = new() { typeof(GlobalStateManager), typeof(ControlManager) };
+        private readonly List<Type> _managers = new() { typeof(GlobalStateManager), typeof(ControlManager) };
 
         private void Awake()
         {
-            foreach (var _gameObject in _stateManagers.Select(_stateManager =>
-                         new GameObject(_stateManager.Name, _stateManager))) ;
-        }
-
-
-        private void Start()
-        {
-            Invoke("ApplicationLoadFinished", 2f);
+            foreach (var gameObject in _managers.Select(manager =>
+                         new GameObject(manager.Name, manager)))
+                Debug.Log("Create :" + gameObject.name);
+            
+            ApplicationLoadFinished();
         }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -33,6 +30,12 @@ namespace Managers
         private void ApplicationLoadFinished()
         {
             GlobalStateManager.Instance.ApplicationLoadFinished = true;
+            Invoke("aaaaaaaaa",5f);
+        }
+
+        void aaaaaaaaa()
+        {
+            GlobalStateManager.Instance.GamePlay = true;
         }
     }
 }
