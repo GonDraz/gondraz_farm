@@ -22,7 +22,7 @@ namespace Managers
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void RuntimeInit()
         {
-            // if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Application") return;
+            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Farm") return;
             var app = new GameObject { name = "ApplicationManager" };
             app.AddComponent<ApplicationManager>();
         }

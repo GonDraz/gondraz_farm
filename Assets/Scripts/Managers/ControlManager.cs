@@ -17,7 +17,7 @@ namespace Managers
         }
         
         private GonDrazFarmControl _control;
-
+        
         private void Start()
         {
             _control = new GonDrazFarmControl();
@@ -28,12 +28,20 @@ namespace Managers
         {
             _control.Player.Enable();
 
-            _control.Player.Move.performed += PlayerController.Instance.Move;
-            _control.Player.Move.canceled += PlayerController.Instance.Move;
+            SubscribePlayer();
         }
 
-
-
+        void SubscribePlayer()
+        {
+            _control.Player.Move.performed += PlayerController.Instance.Move;
+            _control.Player.Move.canceled += PlayerController.Instance.Move;
+            
+            _control.Player.Fire.performed += PlayerController.Instance.Fire;
+            
+            _control.Player.Run.performed += PlayerController.Instance.Run;
+            _control.Player.Run.canceled += PlayerController.Instance.Run;
+        }
+        
         private void OnInGameExit()
         {
         }

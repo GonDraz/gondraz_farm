@@ -71,3 +71,9 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 .idea/
+Assets/RiderFlow.UserData/Editor.meta
+Assets/RiderFlow.UserData/Editor/Scenes.meta
+Assets/RiderFlow.UserData/Editor/Scenes/Bookmarks.Map.meta
+Assets/RiderFlow.UserData/Editor/Scenes/Bookmarks.Map/df5283419c7b93c489f747ae9b7cfad3.userdata
+Assets/RiderFlow.UserData/Editor/Scenes/Bookmarks.Map/df5283419c7b93c489f747ae9b7cfad3.userdata.meta
+Assets/RiderFlow.UserData.meta
