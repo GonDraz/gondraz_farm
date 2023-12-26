@@ -2149,7 +2149,6 @@ MonoBehaviour:
   walkSpeed: 3
   runSpeed: 6
   turnSmoothTime: 0.05
-  movement: {x: 0, y: 0}
 --- !u!1 &7863176642750425846
 GameObject:
   m_ObjectHideFlags: 0

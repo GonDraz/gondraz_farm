@@ -1,8 +1,10 @@
+using Core;
+using Core.Base;
 using UnityEngine;
 
 namespace Entity.Player
 {
-    public class PlayerInteraction : MonoBehaviour
+    public class PlayerInteraction : Base
     {
         private Land _selectedLand;
 

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Entity.Inventory
 {
-    [CreateAssetMenu(menuName = "Items/Item")]
+    [CreateAssetMenu(menuName = "GonDraz/Inventory/Items/Item")]
     public class ItemData : ScriptableObject
     {
         public string description;

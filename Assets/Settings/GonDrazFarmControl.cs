@@ -47,7 +47,7 @@ public partial class @GonDrazFarmControl: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Fire"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""446caf95-75c0-4bd0-a749-9bee6b295919"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",

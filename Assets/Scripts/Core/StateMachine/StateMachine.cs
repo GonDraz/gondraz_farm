@@ -31,7 +31,7 @@ namespace Core.StateMachine
             _currentState?.OnExit();
 
             if (_currentState != null)
-                Debug.Log("Change state " + _currentState.GetType().Name + " to " + state.GetType().Name + "");
+                Debug.Log("Change state from <color=red>" + _currentState.GetType().Name + "</color> to <color=green>" + state.GetType().Name + "</color>");
 
             _currentState = state;
 

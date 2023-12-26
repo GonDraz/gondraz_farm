@@ -1,11 +1,8 @@
-using UnityEngine;
-
 namespace Core
 {
-    public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
+    public abstract class SingletonMonoBehaviour<T> : Base.Base where T : Base.Base
     {
-        protected virtual bool IsDontDestroyOnLoad { get; set; } = false;
-
+        protected abstract bool IsDontDestroyOnLoad();
         public static T Instance { get; private set; }
 
         protected virtual void Awake()
@@ -17,8 +14,8 @@ namespace Core
             }
 
             Instance = this as T;
-            if (IsDontDestroyOnLoad) DontDestroyOnLoad(this);
-            
+            if (IsDontDestroyOnLoad()) DontDestroyOnLoad(this);
+
             OnInit();
         }
 

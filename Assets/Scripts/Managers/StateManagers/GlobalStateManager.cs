@@ -2,20 +2,18 @@ using States;
 
 namespace Managers.StateManagers
 {
-    public class GlobalStateManager :  BaseStateManager<GlobalStateManager>
+    public class GlobalStateManager : BaseStateManager
     {
-        public bool ApplicationLoadFinished { get; set; }
-        public bool GamePlay { get; set; }
-        public bool GamePause { get; set; }
+        public static GlobalStates.PreLoaderState PreLoaderState = new();
+        public static GlobalStates.MenuState MenuState = new();
+        public static GlobalStates.InGameState InGameState = new();
+        public static GlobalStates.PauseState PauseState = new();
+        public static bool ApplicationLoadFinished { get; set; }
+        public static bool GamePlay { get; set; }
+        public static bool GamePause { get; set; }
 
-        public GlobalStates.PreLoaderState PreLoaderState = new();
-        public GlobalStates.MenuState MenuState = new();
-        public GlobalStates.InGameState InGameState = new();
-        public GlobalStates.PauseState PauseState = new();
-
-        protected override void OnInit()
+        protected void Awake()
         {
-            base.OnInit();
             StateMachine.AddTransition(PreLoaderState, MenuState, () => ApplicationLoadFinished);
             StateMachine.AddTransition(MenuState, InGameState, () => GamePlay);
             StateMachine.AddTransition(InGameState, PauseState, () => GamePause);

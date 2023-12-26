@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Entity.Inventory
 {
-    [CreateAssetMenu(menuName = "Items/Equipment")]
+    [CreateAssetMenu(menuName = "GonDraz/Inventory/Items/Equipment")]
     public class EquipmentData : ItemData
     {
         public enum ToolType

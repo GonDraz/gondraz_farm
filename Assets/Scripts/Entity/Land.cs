@@ -1,8 +1,9 @@
+using Core.Base;
 using UnityEngine;
 
 namespace Entity
 {
-    public class Land : MonoBehaviour
+    public class Land : Base
     {
         public enum LandStatus
         {

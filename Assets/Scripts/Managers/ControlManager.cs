@@ -8,42 +8,61 @@ namespace Managers
 {
     public class ControlManager : SingletonMonoBehaviour<ControlManager>
     {
-        protected override bool IsDontDestroyOnLoad { get; set; } = true;
-        protected override void OnInit()
-        {            
-            base.OnInit();
-            GlobalStateManager.Instance.InGameState.Enter += OnInGameEnter;
-            GlobalStateManager.Instance.InGameState.Exit += OnInGameExit;
+        protected override bool IsDontDestroyOnLoad()
+        {
+            return true;
         }
         
         private GonDrazFarmControl _control;
-        
-        private void Start()
-        {
+        private GonDrazFarmControl.PlayerActions _playerControl;
+        private GonDrazFarmControl.UIActions _uiControl;
+
+        protected override void OnInit()
+        {            
+            base.OnInit();
             _control = new GonDrazFarmControl();
             _control.Enable();
+
+            _playerControl = _control.Player;
+            _uiControl = _control.UI;
         }
 
-        private void OnInGameEnter()
+        public override void Subscribe()
         {
-            _control.Player.Enable();
-
-            SubscribePlayer();
+            base.Subscribe();
+            GlobalStateManager.InGameState.Enter += InGameStateOnEnter;
+            GlobalStateManager.InGameState.Exit += InGameStateOnExit;
         }
-
-        void SubscribePlayer()
+        private void InGameStateOnEnter()
         {
             _control.Player.Move.performed += PlayerController.Instance.Move;
             _control.Player.Move.canceled += PlayerController.Instance.Move;
-            
+
             _control.Player.Fire.performed += PlayerController.Instance.Fire;
-            
+
             _control.Player.Run.performed += PlayerController.Instance.Run;
             _control.Player.Run.canceled += PlayerController.Instance.Run;
+            
+            _control.UI.Cancel.performed += OnCancel;
         }
         
-        private void OnInGameExit()
+        private void InGameStateOnExit()
         {
+            _control.Player.Move.performed -= PlayerController.Instance.Move;
+            _control.Player.Move.canceled -= PlayerController.Instance.Move;
+
+            _control.Player.Fire.performed -= PlayerController.Instance.Fire;
+
+            _control.Player.Run.performed -= PlayerController.Instance.Run;
+            _control.Player.Run.canceled -= PlayerController.Instance.Run;
+            
+            _control.UI.Cancel.performed -= OnCancel;
+        }
+
+
+        private void OnCancel(InputAction.CallbackContext obj)
+        {
+            GlobalStateManager.GamePause = !GlobalStateManager.GamePause;
         }
     }
 }
