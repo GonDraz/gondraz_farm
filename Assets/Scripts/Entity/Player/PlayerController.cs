@@ -60,6 +60,9 @@ namespace Entity.Player
                 else
                     _controller.Move(moveDirection.normalized * (walkSpeed * Time.deltaTime));
             }
+
+            _controller.Move(new Vector3(0, -9.87f, 0));
+
         }
 
         private void LateUpdate()
