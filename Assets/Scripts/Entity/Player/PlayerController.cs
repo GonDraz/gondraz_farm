@@ -61,7 +61,7 @@ namespace Entity.Player
                     _controller.Move(moveDirection.normalized * (walkSpeed * Time.deltaTime));
             }
 
-            _controller.Move(new Vector3(0, -9.87f, 0));
+            _controller.Move(new Vector3(0, -9.87f * Time.deltaTime, 0));
 
         }
 
